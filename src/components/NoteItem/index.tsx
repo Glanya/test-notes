@@ -1,11 +1,16 @@
 import React from 'react';
+import { INote } from '../../Interfaces/Interfaces';
 
 import './style.scss';
 
-export const NoteItem = () => {
+interface INoteItemProps {
+  note: INote;
+}
+
+export const NoteItem = ({ note }: INoteItemProps) => {
   return (
     <div className="note">
-      <p>text</p>
+      <p>{note.text}</p>
     </div>
   );
 };

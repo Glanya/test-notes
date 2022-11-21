@@ -1,5 +1,13 @@
 import React from 'react';
 
-export const NewNote = () => {
-  return <div className="new-note">Add note</div>;
+interface INewNoteProps {
+  handleClick: () => void;
+}
+
+export const NewNote = ({ handleClick }: INewNoteProps) => {
+  return (
+    <button className="new-note" onClick={handleClick}>
+      Add note
+    </button>
+  );
 };

@@ -1,7 +1,10 @@
 @import 'scss-reset/_reset.scss';
 
 @import './components/App/style.scss';
-@import './components/NoteItem/style.scss';
-@import './components/NoteList/style.scss';
-@import './components/NewNote/style.scss';
-@import './components/NoteEdit/style.scss';
+@import './components/Aside/style.scss';
+@import './components/Aside/NotesList/style.scss';
+@import './components/Aside/NoteItem/style.scss';
+@import './components/Aside/CreateNote/style.scss';
+@import './components/Aside/Filter/style.scss';
+@import './components/Preview/style.scss';
+@import './components/Preview/Tags/style.scss';

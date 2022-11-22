@@ -1,0 +1,26 @@
+.preview {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+  margin: 0 auto;
+  width: 100%;
+  margin: .5rem;
+  textarea {
+    height: 100vh;
+    resize: none;
+    padding: .3rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    &:disabled {
+      background: transparent;
+    }
+  }
+}
+
+.edit-note {
+  align-self: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.3rem;
+  width: 60px;
+}

@@ -1,34 +1,39 @@
-import React, { useState } from 'react';
-import { NewNote } from '../NewNote';
-import { NoteList } from '../NoteList';
+import React, { useEffect, useState } from 'react';
+import { OpenNoteContext } from '../../Context/Context';
 import { INote } from '../../Interfaces/Interfaces';
-import { NoteEdit } from '../NoteEdit';
-import { NoteEditContext } from '../../Context/Context';
+import { Aside } from '../Aside/index';
+import { Preview } from '../Preview';
+
+const data = localStorage.getItem('data');
 
 function App() {
-  const [notes, setNotes] = useState<INote[] | []>([]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [notes, setNotes] = useState<INote[]>(JSON.parse(data!) || []);
+  const [currentNote, setCurrentNote] = useState<INote | null>(null);
 
-  const toggleNoteEdit = () => setIsOpen((prev) => !prev);
+  useEffect(() => {
+    localStorage.setItem('data', JSON.stringify(notes));
+  }, [notes]);
 
-  const addNote = (text: string) => {
-    const newNote: INote = {
-      id: new Date().getTime().toString(),
-      text,
-    };
-    setNotes((prev) => [...prev, newNote]);
+  const handleOpenNote = (note: INote) => {
+    setCurrentNote(note);
   };
 
-  console.log(notes)
+  const handleChangeNote = (editNote: INote) => {
+    const updatedNotes = notes.map((note: INote) => {
+      if (note.id === editNote.id) {
+        return editNote;
+      } else return note;
+    });
+    setNotes(updatedNotes);
+  };
 
   return (
-    <NoteEditContext.Provider value={isOpen}>
+    <OpenNoteContext.Provider value={{ handleOpenNote }}>
       <div className="wrapper">
-        <NewNote handleClick={toggleNoteEdit} />
-        <NoteEdit isOpen={toggleNoteEdit} onCreate={addNote} />
-        {notes.length ? <NoteList notes={notes}/> : <p>No notes</p>}
+        <Aside notes={notes} setNotes={setNotes} setCurrentNote={setCurrentNote} />
+        {currentNote && <Preview note={currentNote} onChangeNote={handleChangeNote} />}
       </div>
-    </NoteEditContext.Provider>
+    </OpenNoteContext.Provider>
   );
 }
 

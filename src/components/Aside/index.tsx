@@ -17,10 +17,11 @@ interface IAsideProps {
 
 export const Aside = ({ notes, setNotes, currentNote, setCurrentNote }: IAsideProps) => {
   const addNote = (content: string) => {
+    const tags = !getSubstring(content, '#').length ? [] : getSubstring(content, '#').split(' ');
     const newNote: INote = {
       id: uuidv4(),
       content,
-      tags: getSubstring(content, '#').split(' '),
+      tags,
     };
     setNotes((prev) => [...prev, newNote]);
   };

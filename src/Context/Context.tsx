@@ -9,6 +9,12 @@ interface IOpenNoteContext {
   handleOpenNote: (note: INote) => void;
 }
 
+interface IRemoveTagContext {
+  removeTag: (tag: string) => void;
+}
+
 export const RemoveNoteContext = React.createContext<IRemoveNoteContext>({removeNote: () => {}});
 
 export const OpenNoteContext = React.createContext<IOpenNoteContext>({ handleOpenNote: () => {}});
+
+export const RemoveTagContext = React.createContext<IRemoveTagContext>({ removeTag: () => {}});

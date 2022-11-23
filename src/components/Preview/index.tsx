@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { RemoveTagContext } from '../../Context/Context';
 import { INote } from '../../Interfaces/Interfaces';
 import { getSubstring } from '../../utils/getSubstring';
-import { Tags } from './Tags';
+import { TagsList } from './TagsList';
 
 interface IPreviewProps {
   currentNote: INote;
@@ -23,7 +24,7 @@ export const Preview = ({ currentNote, onChangeNote }: IPreviewProps) => {
   };
 
   const handleSave = () => {
-    const tags = getSubstring(content, '#').split(' ');
+    const tags = !getSubstring(content, '#').length ? [] : getSubstring(content, '#').split(' ');
     onChangeNote({
       id: currentNote.id,
       content,
@@ -37,20 +38,37 @@ export const Preview = ({ currentNote, onChangeNote }: IPreviewProps) => {
     setContent(event.target.value);
   }, []);
 
-  return (
-    <form className="preview">
-      {isEdit ? (
-        <button type="button" className="change-note_btn" onClick={handleSave}>
-          Save
-        </button>
-      ) : (
-        <button type="button" className="change-note_btn" onClick={handleEdit}>
-          Edit
-        </button>
-      )}
+  const removeTag = (tag: string) => {
+    const removedTags = tags.filter((string) => string !== tag);
+    const newContent = content
+      .split(' ')
+      .filter((string) => string !== tag)
+      .join(' ');
+    onChangeNote({
+      id: currentNote.id,
+      content: newContent,
+      tags: removedTags,
+    });
+    setTags(removedTags);
+    setContent(newContent);
+  };
 
-      <textarea disabled={!isEdit} value={content} onChange={handleValueChange}></textarea>
-      {tags && <Tags tags={tags} />}
-    </form>
+  return (
+    <RemoveTagContext.Provider value={{ removeTag }}>
+      <form className="preview">
+        {isEdit ? (
+          <button type="button" className="change-note_btn" onClick={handleSave}>
+            Save
+          </button>
+        ) : (
+          <button type="button" className="change-note_btn" onClick={handleEdit}>
+            Edit
+          </button>
+        )}
+
+        <textarea disabled={!isEdit} value={content} onChange={handleValueChange}></textarea>
+        {tags && <TagsList tags={tags} />}
+      </form>
+    </RemoveTagContext.Provider>
   );
 };

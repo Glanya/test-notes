@@ -28,11 +28,11 @@ function App() {
   };
 
   return (
-    <OpenNoteContext.Provider value={{handleOpenNote}}>
-        <div className="wrapper">
-          <Aside notes={notes} setNotes={setNotes} currentNote={currentNote} setCurrentNote={setCurrentNote} />
-          {currentNote && <Preview currentNote={currentNote} onChangeNote={handleChangeNote} />}
-        </div>
+    <OpenNoteContext.Provider value={{ handleOpenNote }}>
+      <div className="wrapper">
+        <Aside notes={notes} setNotes={setNotes} currentNote={currentNote} setCurrentNote={setCurrentNote} />
+        {currentNote && <Preview currentNote={currentNote} onChangeNote={handleChangeNote} />}
+      </div>
     </OpenNoteContext.Provider>
   );
 }

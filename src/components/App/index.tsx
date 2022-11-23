@@ -10,9 +10,11 @@ function App() {
   const [notes, setNotes] = useState<INote[]>(JSON.parse(data!) || []);
   const [currentNote, setCurrentNote] = useState<INote | null>(null);
 
+
   useEffect(() => {
     localStorage.setItem('data', JSON.stringify(notes));
   }, [notes]);
+
 
   const handleOpenNote = (note: INote) => {
     setCurrentNote(note);

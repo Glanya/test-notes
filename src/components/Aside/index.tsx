@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { CreateNote } from './CreateNote';
@@ -16,6 +16,10 @@ interface IAsideProps {
 }
 
 export const Aside = ({ notes, setNotes, currentNote, setCurrentNote }: IAsideProps) => {
+  const [filterValue, setFilterValue] = useState('');
+
+  const filteredNotes = notes.filter((note) => note.tags.join(' ').toLowerCase().split(' ').includes(filterValue.toLowerCase()));
+
   const addNote = (content: string) => {
     const tags = !getSubstring(content, '#').length ? [] : getSubstring(content, '#').split(' ');
     const newNote: INote = {
@@ -36,9 +40,9 @@ export const Aside = ({ notes, setNotes, currentNote, setCurrentNote }: IAsidePr
   return (
     <RemoveNoteContext.Provider value={{ removeNote }}>
       <aside className="aside">
-        <Filter />
+        <Filter setFilterValue={setFilterValue} />
         <CreateNote onCreate={addNote} />
-        {notes.length ? <NotesList notes={notes} currentNote={currentNote} /> : <p>No notes</p>}
+        {notes.length ? <NotesList notes={filterValue ? filteredNotes : notes} currentNote={currentNote} /> : <p>No notes</p>}
       </aside>
     </RemoveNoteContext.Provider>
   );

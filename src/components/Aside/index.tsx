@@ -6,26 +6,30 @@ import { NotesList } from './NotesList';
 import { INote } from '../../Interfaces/Interfaces';
 import { RemoveNoteContext } from '../../Context/Context';
 import { Filter } from './Filter';
+import { getSubstring } from '../../utils/getSubstring';
 
 interface IAsideProps {
   notes: INote[];
+  currentNote: INote | null;
   setNotes: Dispatch<SetStateAction<INote[]>>;
   setCurrentNote: Dispatch<SetStateAction<INote | null>>;
 }
 
-export const Aside = ({ notes, setNotes, setCurrentNote }: IAsideProps) => {
+export const Aside = ({ notes, setNotes, currentNote, setCurrentNote }: IAsideProps) => {
   const addNote = (content: string) => {
     const newNote: INote = {
       id: uuidv4(),
       content,
-      tags: [],
+      tags: getSubstring(content, '#').split(' '),
     };
     setNotes((prev) => [...prev, newNote]);
   };
 
   const removeNote = (id: string) => {
     setNotes(notes.filter((note) => note.id !== id));
-    setCurrentNote(null);
+    if (currentNote?.id === id) {
+      setCurrentNote(null);
+    }
   };
 
   return (
@@ -33,7 +37,7 @@ export const Aside = ({ notes, setNotes, setCurrentNote }: IAsideProps) => {
       <aside className="aside">
         <Filter />
         <CreateNote onCreate={addNote} />
-        {notes.length ? <NotesList notes={notes} /> : <p>No notes</p>}
+        {notes.length ? <NotesList notes={notes} currentNote={currentNote} /> : <p>No notes</p>}
       </aside>
     </RemoveNoteContext.Provider>
   );

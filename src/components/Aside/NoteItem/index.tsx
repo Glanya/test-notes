@@ -6,20 +6,22 @@ import './style.scss';
 
 interface INoteItemProps {
   note: INote;
+  className: string;
 }
 
-export const NoteItem = ({ note }: INoteItemProps) => {
+export const NoteItem = ({ note, className }: INoteItemProps) => {
   const { removeNote } = useContext(RemoveNoteContext);
   const { handleOpenNote } = useContext(OpenNoteContext);
 
-  const handleChooseNote = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleRemoveNote = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     removeNote(note.id);
   };
+
   return (
-    <div className="note" onClick={() => handleOpenNote(note)}>
+    <div className={className} onClick={() => handleOpenNote(note)}>
       <p>{note.content.length > 10 ? `${note.content.substring(0, 8)}...` : note.content}</p>
-      <button onClick={handleChooseNote}>&times;</button>
+      <button onClick={handleRemoveNote}>&times;</button>
     </div>
   );
 };

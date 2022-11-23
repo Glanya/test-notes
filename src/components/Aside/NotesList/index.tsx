@@ -4,13 +4,14 @@ import { NoteItem } from '../NoteItem';
 
 interface INotesListProps {
   notes: INote[] | [];
+  currentNote: INote | null;
 }
 
-export const NotesList = ({ notes }: INotesListProps) => {
+export const NotesList = ({ notes, currentNote }: INotesListProps) => {
   return (
     <div className="note-list">
       {notes.map((note) => {
-        return <NoteItem key={note.id} note={note} />;
+        return <NoteItem key={note.id} note={note} className={currentNote?.id === note.id ? 'note active' : 'note'}/>;
       })}
     </div>
   );

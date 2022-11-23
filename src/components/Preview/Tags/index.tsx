@@ -2,16 +2,16 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 interface ITagsProps {
-  tags: string[] | undefined;
+  tags: string[];
 }
 
 export const Tags = ({ tags }: ITagsProps) => {
   return (
     <div className="tags">
       <ul className="tags-list">
-        {tags?.map((tag: string) => {
+        {tags.map((tag) => {
           return (
-            <li className="tag" key={uuidv4()}>
+            <li key={uuidv4()} className="tag">
               {tag}
             </li>
           );

@@ -4,28 +4,28 @@ import { getSubstring } from '../../utils/getSubstring';
 import { Tags } from './Tags';
 
 interface IPreviewProps {
-  note: INote;
+  currentNote: INote;
   onChangeNote: (editNote: INote) => void;
 }
 
-export const Preview = ({ note, onChangeNote }: IPreviewProps) => {
+export const Preview = ({ currentNote, onChangeNote }: IPreviewProps) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [content, setContent] = useState(note.content);
-  const [tags, setTags] = useState(note.tags);
+  const [content, setContent] = useState(currentNote.content);
+  const [tags, setTags] = useState(currentNote.tags);
 
   useEffect(() => {
-    setContent(note.content);
-    setTags(note.tags);
-  }, [note]);
+    setContent(currentNote.content);
+    setTags(currentNote.tags);
+  }, [currentNote]);
 
   const handleEdit = () => {
     setIsEdit(true);
   };
 
   const handleSave = () => {
-    const tags = getSubstring(content, '#');
+    const tags = getSubstring(content, '#').split(' ');
     onChangeNote({
-      id: note.id,
+      id: currentNote.id,
       content,
       tags,
     });
@@ -40,17 +40,17 @@ export const Preview = ({ note, onChangeNote }: IPreviewProps) => {
   return (
     <form className="preview">
       {isEdit ? (
-        <button type="button" className="save-note" onClick={handleSave}>
+        <button type="button" className="change-note_btn" onClick={handleSave}>
           Save
         </button>
       ) : (
-        <button type="button" className="edit-note" onClick={handleEdit}>
+        <button type="button" className="change-note_btn" onClick={handleEdit}>
           Edit
         </button>
       )}
 
       <textarea disabled={!isEdit} value={content} onChange={handleValueChange}></textarea>
-      <Tags tags={tags} />
+      {tags && <Tags tags={tags} />}
     </form>
   );
 };

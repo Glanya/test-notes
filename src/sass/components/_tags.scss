@@ -1,8 +1,6 @@
 .tags {
+  @include container-border;
   height: 200px;
-  padding: .3rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
 }
 
 .tags-list {

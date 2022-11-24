@@ -22,7 +22,7 @@ export const CreateNote = ({ onCreate }: ICreateNoteProps) => {
   return (
     <form className="note-edit" onSubmit={submitHandler}>
       <textarea placeholder="Create note" value={value} onChange={handleValueChange} />
-      <button type="submit">Create</button>
+      <button className="btn create-note_btn" type="submit">Create</button>
     </form>
   );
 };

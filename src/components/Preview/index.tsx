@@ -58,11 +58,11 @@ export const Preview = ({ currentNote, onChangeNote }: IPreviewProps) => {
     <RemoveTagContext.Provider value={{ removeTag }}>
       <form className="preview">
         {isEdit ? (
-          <button type="button" className="change-note_btn" onClick={handleSave}>
+          <button type="button" className="btn change-note_btn" onClick={handleSave}>
             Save
           </button>
         ) : (
-          <button type="button" className="change-note_btn" onClick={handleEdit}>
+          <button type="button" className="btn change-note_btn" onClick={handleEdit}>
             Edit
           </button>
         )}

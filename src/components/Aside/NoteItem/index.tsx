@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { NoteContext } from '../../../Context/Context';
 import { INote } from '../../../Interfaces/Interfaces';
 
-import './style.scss';
 
 interface INoteItemProps {
   note: INote;

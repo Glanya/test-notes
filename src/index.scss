@@ -1,0 +1,14 @@
+@import 'scss-reset/_reset.scss';
+
+@import './sass/abstracts/mixins';
+
+@import './sass/layout/page';
+@import './sass/layout/aside';
+@import './sass/layout/preview';
+
+@import './sass/components/buttons';
+@import './sass/components/filter';
+@import './sass/components/notes';
+@import './sass/components/textareas';
+@import './sass/components/tags';
+

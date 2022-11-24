@@ -1,0 +1,21 @@
+.note-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.note {
+  @include container-border;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem 1rem;
+  margin-bottom: .5rem;
+  width: 100%;
+  color: #858585;
+}
+
+.active {
+  border-color: blue;
+}

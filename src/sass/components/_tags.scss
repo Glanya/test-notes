@@ -1,0 +1,13 @@
+.tags {
+  @include container-border;
+  height: 200px;
+}
+
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  margin: 0 5px;
+}

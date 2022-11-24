@@ -1,0 +1,15 @@
+.create-note_btn {
+  width: 100%;
+}
+
+.change-note_btn {
+  width: 60px;
+}
+
+.btn {
+  @include container-border;
+  border-radius: 5px;
+  align-self: center;
+  margin-bottom: 0.5rem;
+}
+

@@ -5,16 +5,14 @@
   margin: 0 auto;
   width: 100%;
   margin: .5rem;
-  textarea {
-    height: 100vh;
-    resize: none;
-    padding: .3rem;
+
+}
+
+.DraftEditor-root {
+    height: 500px;
+    padding: 0.3rem;
     border-radius: 5px;
     border: 1px solid #ccc;
-    &:disabled {
-      background: transparent;
-    }
-  }
 }
 
 .change-note_btn {

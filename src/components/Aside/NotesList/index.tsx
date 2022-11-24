@@ -11,7 +11,7 @@ export const NotesList = ({ notes, currentNote }: INotesListProps) => {
   return (
     <div className="note-list">
       {notes.map((note) => {
-        return <NoteItem key={note.id} note={note} className={currentNote?.id === note.id ? 'note active' : 'note'}/>;
+        return <NoteItem key={note.id} note={note} className={currentNote?.id === note.id ? 'note active' : 'note'} />;
       })}
     </div>
   );

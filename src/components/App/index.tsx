@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { OpenNoteContext } from '../../Context/Context';
+import { NoteContext, NotesContext } from '../../Context/Context';
 import { INote } from '../../Interfaces/Interfaces';
 import { Aside } from '../Aside/index';
 import { Preview } from '../Preview';
@@ -10,11 +10,9 @@ function App() {
   const [notes, setNotes] = useState<INote[]>(JSON.parse(data!) || []);
   const [currentNote, setCurrentNote] = useState<INote | null>(null);
 
-
   useEffect(() => {
     localStorage.setItem('data', JSON.stringify(notes));
   }, [notes]);
-
 
   const handleOpenNote = (note: INote) => {
     setCurrentNote(note);
@@ -29,13 +27,22 @@ function App() {
     setNotes(updatedNotes);
   };
 
+  const removeNote = (id: string) => {
+    setNotes(notes.filter((note) => note.id !== id));
+    if (currentNote?.id === id) {
+      setCurrentNote(null);
+    }
+  };
+
   return (
-    <OpenNoteContext.Provider value={{ handleOpenNote }}>
-      <div className="wrapper">
-        <Aside notes={notes} setNotes={setNotes} currentNote={currentNote} setCurrentNote={setCurrentNote} />
-        {currentNote && <Preview currentNote={currentNote} onChangeNote={handleChangeNote} />}
-      </div>
-    </OpenNoteContext.Provider>
+    <NotesContext.Provider value={[notes, setNotes]}>
+      <NoteContext.Provider value={{ removeNote, handleOpenNote }}>
+        <div className="wrapper">
+          <Aside currentNote={currentNote} />
+          {currentNote && <Preview currentNote={currentNote} onChangeNote={handleChangeNote} />}
+        </div>
+      </NoteContext.Provider>
+    </NotesContext.Provider>
   );
 }
 

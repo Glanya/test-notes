@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { SetStateAction, useCallback, useEffect, useState } from 'react';
+import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
 import { RemoveTagContext } from '../../Context/Context';
 import { INote } from '../../Interfaces/Interfaces';
 import { getSubstring } from '../../utils/getSubstring';
@@ -34,8 +35,8 @@ export const Preview = ({ currentNote, onChangeNote }: IPreviewProps) => {
     setIsEdit(false);
   };
 
-  const handleValueChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(event.target.value);
+  const handleValueChange = useCallback((value: SetStateAction<string>) => {
+    setContent(value);
   }, []);
 
   const removeTag = (tag: string) => {
@@ -65,8 +66,7 @@ export const Preview = ({ currentNote, onChangeNote }: IPreviewProps) => {
             Edit
           </button>
         )}
-
-        <textarea disabled={!isEdit} value={content} onChange={handleValueChange}></textarea>
+        {isEdit ? <HighlightWithinTextarea highlight={/#([^ ]+)/g} readOnly={!isEdit} value={content} onChange={handleValueChange} /> : <div className="DraftEditor-root">{content}</div>}
         {tags && <TagsList tags={tags} />}
       </form>
     </RemoveTagContext.Provider>

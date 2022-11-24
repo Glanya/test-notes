@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { OpenNoteContext, RemoveNoteContext } from '../../../Context/Context';
+import { NoteContext } from '../../../Context/Context';
 import { INote } from '../../../Interfaces/Interfaces';
 
 import './style.scss';
@@ -10,8 +10,7 @@ interface INoteItemProps {
 }
 
 export const NoteItem = ({ note, className }: INoteItemProps) => {
-  const { removeNote } = useContext(RemoveNoteContext);
-  const { handleOpenNote } = useContext(OpenNoteContext);
+  const { removeNote, handleOpenNote } = useContext(NoteContext);
 
   const handleRemoveNote = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();

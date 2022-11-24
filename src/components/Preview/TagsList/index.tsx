@@ -9,7 +9,7 @@ interface ITagsListProps {
 export const TagsList = ({ tags }: ITagsListProps) => {
   return (
     <div className="tags">
-      {(tags) ? (
+      {tags ? (
         <ul className="tags-list">
           {tags.map((tag) => {
             return <TagItem key={uuidv4()} tag={tag} />;

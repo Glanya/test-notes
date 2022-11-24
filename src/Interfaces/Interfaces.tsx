@@ -3,4 +3,3 @@ export interface INote {
   content: string;
   tags: string[];
 }
-
